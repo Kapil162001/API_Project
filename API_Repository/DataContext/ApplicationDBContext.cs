@@ -1,10 +1,5 @@
 ﻿using API_Repository.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace API_Repository.DataContext
 {
@@ -15,5 +10,6 @@ namespace API_Repository.DataContext
 
         }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Register> Registers { get; set; }
     }
 }

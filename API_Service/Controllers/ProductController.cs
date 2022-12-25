@@ -2,13 +2,14 @@
 using API_Repository.Models;
 using API_Repository.Models.DTO;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_Service.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/v{version:apiVersion}/Product")]
     [ApiController]
+    [ApiVersion("1.0", Deprecated = true)]
     public class ProductController : ControllerBase
     {
         private readonly IBusiness<Product> _business;
@@ -19,6 +20,7 @@ namespace API_Service.Controllers
             _mapper = mapper;
         }
         [HttpGet]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IEnumerable<Product>>> GetAllProduct()
@@ -97,7 +99,7 @@ namespace API_Service.Controllers
                 {
                     return BadRequest("Id cannot be zero");
                 }
-                var product = await _business.GetById(x=>x.Id==id);
+                var product = await _business.GetById(x => x.Id == id);
                 var value = _business.Delete(product);
                 if (value != 0)
                 {
@@ -121,7 +123,7 @@ namespace API_Service.Controllers
         {
             try
             {
-                if (updateDTO==null||updateDTO.Id!=id)
+                if (updateDTO == null || updateDTO.Id != id)
                 {
                     return BadRequest("Id mismatch");
                 }

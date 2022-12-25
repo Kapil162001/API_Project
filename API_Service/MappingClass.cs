@@ -4,7 +4,7 @@ using AutoMapper;
 
 namespace API_Service
 {
-    public class MappingClass:Profile
+    public class MappingClass : Profile
     {
         public MappingClass()
         {
@@ -12,6 +12,6 @@ namespace API_Service
             CreateMap<Product, ProductCreateDTO>().ReverseMap();
             CreateMap<Product, ProductUpdateDTO>().ReverseMap();
         }
-        
+
     }
 }
